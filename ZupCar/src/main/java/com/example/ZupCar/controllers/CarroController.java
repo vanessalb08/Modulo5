@@ -1,5 +1,6 @@
 package com.example.ZupCar.controllers;
 
+import com.example.ZupCar.dtos.CarroDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,23 +19,13 @@ public class CarroController {
     //Manda o
    // @ResponseBody //Colocar o retorno da resposta no corpo. Informa que o retorno dele será serializado
     // (no nosso caso, um JASON)
-    public HashMap<String, String> exibirFusca(){
-        //Usando o hash para fazer o JSON
-        HashMap <String, String> fusca = new HashMap<>();
-        fusca.put("Car", "azul");
-        fusca.put("Ano", "1964");
-        fusca.put("Motor", "mil");
-
+    public CarroDTO exibirFusca(){
+        CarroDTO fusca = new CarroDTO("fusca"," azul", "mil", 1987);
         return fusca;
     }
     @GetMapping("/kombi")
-    public HashMap<String, String> exibirKombi(){
-        //Usando o hash para fazer o JSON
-        HashMap <String, String> kombi = new HashMap<>();
-        kombi.put("Car", "branco");
-        kombi.put("Ano", "1972");
-        kombi.put("Motor", "mil");
-
+    public CarroDTO exibirKombi(){
+        CarroDTO kombi = new CarroDTO("kombi"," branca", "mil", 1962);
         return kombi;
     }
 }
