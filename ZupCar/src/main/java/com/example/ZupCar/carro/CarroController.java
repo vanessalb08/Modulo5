@@ -1,6 +1,7 @@
-package com.example.ZupCar.controllers;
+package com.example.ZupCar.carro;
 
-import com.example.ZupCar.dtos.CarroDTO;
+import com.example.ZupCar.carro.dtos.CarroDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,6 +13,7 @@ import java.util.List;
 @RequestMapping("/carros")
 
 public class CarroController {
+
     private List <CarroDTO> concessionaria = new ArrayList<>();
 
     @GetMapping
@@ -44,11 +46,31 @@ public class CarroController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
     //Alterar o nome do carro
-    @PutMapping("/{nomeDoCarro")
-    public CarroDTO atualizarCarro(@PathVariable String nomeDoCarro){
-        for (CarroDTO carroReferencia : concessionaria){
-            if (carroReferencia.getModelo().equalsIgnoreCase(nomeDoCarro)){
-                return carroReferencia;
+    @PutMapping("/{nomeDoCarro}")
+    public CarroDTO atualizarCarro(@PathVariable String nomeDoCarro, @RequestBody CarroDTO carroDTO){
+        for (CarroDTO objetoDaLista : concessionaria){ //Pesquisa se o que foi inserido na variável está na lista
+            if (objetoDaLista.getModelo().equalsIgnoreCase(nomeDoCarro)){
+                //Se estiver na lista, o objeto inicializado recebe o corpo dele
+                //Se encontrar o carro, muda os atributos dele utilizando o set.
+                //O carroDTO é referente ao que foi pego no requestBody.
+                // Faz isso para todos os atributos
+                objetoDaLista.setCor(carroDTO.getCor());
+                objetoDaLista.setMotor(carroDTO.getMotor());
+                objetoDaLista.setAno(carroDTO.getAno());
+                //Retorna o carro referência com os novos valores
+                return objetoDaLista;
+            }
+        }//Se não encontrar o carro, estoura a exceção
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrei");
+    }
+    //Deletar o carro
+    @DeleteMapping("/{nomeDoCarro}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluirCarro (@PathVariable String nomeDoCarro){
+
+        for (CarroDTO carroObjeto : concessionaria){
+            if (carroObjeto.getModelo().equalsIgnoreCase(nomeDoCarro)){
+                concessionaria.remove(carroObjeto);
             }
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);

@@ -1,4 +1,4 @@
-package com.example.ZupCar.dtos;
+package com.example.ZupCar.carro.dtos;
 //Todos os carro possui os mesmos atributos
 public class CarroDTO {
     private String modelo;
