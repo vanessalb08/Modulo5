@@ -1,4 +1,4 @@
-package br.com.zup.lead;
+package br.com.zup.lead.dtos;
 
 public class ProdutoDTO {
     private String nomeProduto;

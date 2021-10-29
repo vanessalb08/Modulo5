@@ -1,4 +1,4 @@
-package br.com.zup.lead;
+package br.com.zup.lead.dtos;
 
 import java.util.List;
 
@@ -9,13 +9,6 @@ public class LeadDTO {
     private List<ProdutoDTO> produtoDTOList;
 
     public LeadDTO() {
-    }
-
-    public LeadDTO(String email, String nome, String telefone, List<ProdutoDTO> produtoDTOList) {
-        this.email = email;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.produtoDTOList = produtoDTOList;
     }
 
     public String getEmail() {
