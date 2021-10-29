@@ -1,31 +1,56 @@
 package com.example.ZupCar.controllers;
 
 import com.example.ZupCar.dtos.CarroDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
-//Primeira coisa é identificar a classe como controller
+@RestController
+@RequestMapping("/carros")
 
-//@Controller
-@RestController // Ele insere automaticamente o responseBody em todos os métodos
-@RequestMapping("/carros") //Mapeia o /carro para todos os métodos, eviatando a repetição no getMapping.
-//Como se estivesse concatenando os endpoints
 public class CarroController {
-    //Esse é o endpoint
-    @GetMapping("/fusca")//O que tem nos parênteses depois da / é o endereço específico de acesso
-    //Manda o
-   // @ResponseBody //Colocar o retorno da resposta no corpo. Informa que o retorno dele será serializado
-    // (no nosso caso, um JASON)
-    public CarroDTO exibirFusca(){
-        CarroDTO fusca = new CarroDTO("fusca"," azul", "mil", 1987);
-        return fusca;
+    private List <CarroDTO> concessionaria = new ArrayList<>();
+
+    @GetMapping
+    public List<CarroDTO> exibirTodosOsCarros(){
+        return concessionaria;
     }
-    @GetMapping("/kombi")
-    public CarroDTO exibirKombi(){
-        CarroDTO kombi = new CarroDTO("kombi"," branca", "mil", 1962);
-        return kombi;
+
+    //Se para colocar a resposta do método no corpo da resposta utiliza @ResponseBody (resposta do corpo), para mudar o status da resposta
+    // coloca @ResponseStatus (resposta do status)
+    //Só vai responder esse status quando o método for executado sem nenhum problema
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void cadastrarCarro(@RequestBody CarroDTO carroDTO){
+        concessionaria.add(carroDTO);
+    }
+
+    //Recebe da uri e entrega para o parâmetro do método através da PathVariable)
+    //Esse método lê o que foi inserido na uri e pesquisa se existe algum modelo com o nome que foi digitado na URI
+    //Quando tem um /{} quer dizer que o que está dentro das {} é uma variável que vai ser atribuida depois ao parâmetro
+    // através do @PathVariable
+    //O verbo PATH serve para alterar parcialmente o recurso
+    @GetMapping ("/{nomeDoCarro}")
+    public CarroDTO exibirCarro (@PathVariable String nomeDoCarro){
+        for (CarroDTO carro : concessionaria){
+            if (carro.getModelo().equalsIgnoreCase(nomeDoCarro)){
+                return carro;
+            }
+        }
+        //Estoura uma exceção para dizer que o nome não foi encontrado, assim não retorna null
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+    //Alterar o nome do carro
+    @PutMapping("/{nomeDoCarro")
+    public CarroDTO atualizarCarro(@PathVariable String nomeDoCarro){
+        for (CarroDTO carroReferencia : concessionaria){
+            if (carroReferencia.getModelo().equalsIgnoreCase(nomeDoCarro)){
+                return carroReferencia;
+            }
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 }
