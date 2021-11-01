@@ -19,7 +19,13 @@ public class LeadService {
     }
 
     public void adicionarLead(LeadDTO novoLead) {
-        leadsList.add(novoLead);
+        if (verificarEmailCadastrado(novoLead.getEmail())){
+            verificarProdutoRepetido(novoLead);
+            atualizarProdutosLead(novoLead);
+        }
+        else {
+            leadsList.add(novoLead);
+        }
 
     }
 
@@ -59,5 +65,10 @@ public class LeadService {
     }
 
     //Adicionar produto a lista existente
-
+    public void atualizarProdutosLead(LeadDTO novoLead){
+        LeadDTO leadAntiga = encontrarLeadCadastrado(novoLead.getEmail());
+        for (ProdutoDTO produtoReferencia : novoLead.getProdutos()){
+            leadAntiga.getProdutos().add(produtoReferencia);
+        }
+    }
 }
