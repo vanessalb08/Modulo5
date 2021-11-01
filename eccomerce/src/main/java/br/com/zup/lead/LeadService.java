@@ -45,7 +45,18 @@ public class LeadService {
 
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+
     //verificar produto repetido
+    public void verificarProdutoRepetido( LeadDTO novoLead){
+        LeadDTO leadAntigo = encontrarLeadCadastrado(novoLead.getEmail());
+        for (ProdutoDTO produtoAntigoReferencia : leadAntigo.getProdutos()){
+            for (ProdutoDTO produtoNovoReferencia : novoLead.getProdutos()){
+                if (produtoAntigoReferencia.equals(produtoNovoReferencia)){
+                    throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+                }
+            }
+        }
+    }
 
     //Adicionar produto a lista existente
 
