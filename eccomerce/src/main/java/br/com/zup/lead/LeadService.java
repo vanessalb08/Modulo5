@@ -19,18 +19,20 @@ public class LeadService {
     }
 
     public void adicionarLead(LeadDTO novoLead) {
-        for (LeadDTO leadReferencia : leadsList) {
-            if (leadReferencia.getEmail().equals(novoLead.getEmail())) {
-                for (ProdutoDTO produtoReferencia : leadReferencia.getProdutos()){
-                    //Corrigir isso aqui que não tá funcionando
-                    if (produtoReferencia.getNomeProduto().equals(novoLead.getProdutos())){
-                        throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-                    }
-                    leadReferencia.getProdutos().add(produtoReferencia);
-                }
+        leadsList.add(novoLead);
+
+    }
+    //Verificar se o e-mail já está cadastrado
+    public boolean verificarEmailCadastrado (String email){
+        for (LeadDTO leadReferencia : leadsList){
+            if (leadReferencia.getEmail().equals(email)){
+                return true;
             }
         }
-        leadsList.add(novoLead);
+        return false;
+
     }
+    //verificar produto repetido
+    //Adicionar produto a lista existente
 
 }
