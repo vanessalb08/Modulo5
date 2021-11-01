@@ -34,7 +34,17 @@ public class LeadService {
         return false;
 
     }
+    //Buscar lead existente
+    public LeadDTO encontrarLeadCadastrado(String email){
+        for (LeadDTO leadReferencia : leadsList){
+            if (leadReferencia.getEmail().equals(email)){
+                return leadReferencia;
 
+            }
+        }
+
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
     //verificar produto repetido
 
     //Adicionar produto a lista existente
