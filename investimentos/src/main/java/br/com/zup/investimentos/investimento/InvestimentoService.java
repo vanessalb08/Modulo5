@@ -15,6 +15,7 @@ public class InvestimentoService {
     private List<MontanteDTO> montantes =new ArrayList<>();
 
     public double pegarTaxa (InvestimentoDTO investimentoDTO){
+
         double taxaDeRetorno = 0;
         
         if (investimentoDTO.getRisco() == Risco.ALTO){
@@ -33,20 +34,22 @@ public class InvestimentoService {
 
     }
 
-    public double calcularTotalDoLucro (InvestimentoDTO investimentoDTO){
+    public double calcularValorTotal(InvestimentoDTO investimentoDTO){
 
         double valorInvestido = investimentoDTO.getValorInvestido();
-        double valorTotalLucro = valorInvestido * pegarTaxa(investimentoDTO);
+        int meses = investimentoDTO.getPeriodoDeAplicacaoMeses();
 
-        return valorTotalLucro;
+        double valorTotal = valorInvestido * Math.pow(1 + pegarTaxa(investimentoDTO), meses);
+
+        return valorTotal;
 
     }
 
-    public double calcularValorTotal (InvestimentoDTO investimentoDTO){
+    public double calcularValorTotalLucro(InvestimentoDTO investimentoDTO){
 
-        double valorTotal = calcularTotalDoLucro(investimentoDTO) + investimentoDTO.getValorInvestido();
+        double valorTotalLucro = calcularValorTotal(investimentoDTO) - investimentoDTO.getValorInvestido();
 
-        return valorTotal;
+        return valorTotalLucro;
     }
 
     public MontanteDTO retornarMontante(InvestimentoDTO novoInvestimento){
@@ -56,7 +59,7 @@ public class InvestimentoService {
         validarAltoRisco(novoInvestimento);
 
         retornoMontante.setValorInvestido(novoInvestimento.getValorInvestido());
-        retornoMontante.setValorTotalDolucro(calcularTotalDoLucro(novoInvestimento));
+        retornoMontante.setValorTotalDolucro(calcularValorTotalLucro(novoInvestimento));
         retornoMontante.setValorTotal(calcularValorTotal(novoInvestimento));
 
         montantes.add(retornoMontante);
