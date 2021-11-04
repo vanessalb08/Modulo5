@@ -4,6 +4,8 @@ import br.com.zup.investimentos.dtos.InvestimentoDTO;
 import br.com.zup.investimentos.dtos.MontanteDTO;
 import br.com.zup.investimentos.dtos.Risco;
 import br.com.zup.investimentos.investimento.exceptions.InvestimentoAltoRiscoMenorQueCincoMilException;
+import br.com.zup.investimentos.investimento.exceptions.RiscoInvalidoException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,21 +18,13 @@ public class InvestimentoService {
 
     public double pegarTaxa (InvestimentoDTO investimentoDTO){
 
-        double taxaDeRetorno = 0;
-        
-        if (investimentoDTO.getRisco() == Risco.ALTO){
-            taxaDeRetorno = Risco.ALTO.getTaxaDeRetorno();
-
+        for (Risco riscoReferencia : Risco.values()){
+            if (investimentoDTO.getRisco().equals(riscoReferencia)){
+                return riscoReferencia.getTaxaDeRetorno();
+            }
         }
-        else if(investimentoDTO.getRisco() == Risco.MEDIO){
-            taxaDeRetorno = Risco.MEDIO.getTaxaDeRetorno();
 
-        }
-        else if (investimentoDTO.getRisco() == Risco.BAIXO){
-            taxaDeRetorno = Risco.BAIXO.getTaxaDeRetorno();
-
-        }
-        return taxaDeRetorno;
+        throw new RiscoInvalidoException("Risco Inválido");
 
     }
 

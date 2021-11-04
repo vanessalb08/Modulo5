@@ -1,6 +1,7 @@
 package br.com.zup.investimentos.config;
 
 import br.com.zup.investimentos.investimento.exceptions.InvestimentoAltoRiscoMenorQueCincoMilException;
+import br.com.zup.investimentos.investimento.exceptions.RiscoInvalidoException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -35,10 +36,16 @@ public class ControllerAdvice {
 
     }
 
+    @ExceptionHandler(RiscoInvalidoException.class)
+    public MensagemErro tratarRiscoinvalido(RiscoInvalidoException excessao){
+        return new MensagemErro(excessao.getMessage());
+    }
+
+    /*
     @ExceptionHandler(InvalidFormatException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public MensagemErro tratarRiscoNaoReconhecido (){
         return new MensagemErro("Risco não reconhecido");
     }
-
+*/
 }
