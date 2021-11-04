@@ -11,7 +11,7 @@ public class InvestimentoDTO {
     @Email(message = "E-mail inválido!")
     private String email;
     private String nome;
-    @CPF
+    @CPF(message = "CPF inválido")
     private String cpf;
     private double valorInvestido;
     @Min(2)
