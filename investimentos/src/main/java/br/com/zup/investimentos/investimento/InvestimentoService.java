@@ -53,6 +53,8 @@ public class InvestimentoService {
 
         MontanteDTO retornoMontante = new MontanteDTO();
 
+        validarAltoRisco(novoInvestimento);
+
         retornoMontante.setValorInvestido(novoInvestimento.getValorInvestido());
         retornoMontante.setValorTotalDolucro(calcularTotalDoLucro(novoInvestimento));
         retornoMontante.setValorTotal(calcularValorTotal(novoInvestimento));
@@ -65,6 +67,16 @@ public class InvestimentoService {
 
     public List<MontanteDTO> retornarTodosMontantes(){
         return montantes;
+    }
+
+    public void validarAltoRisco(InvestimentoDTO investimentoDTO){
+
+        double investimentoMinimo = 5000;
+
+        if (investimentoDTO.getRisco() == Risco.ALTO & investimentoDTO.getValorInvestido() < investimentoMinimo){
+            throw new RuntimeException("Mínimo investido para esse tipo de risco é de R$ 5000,00");
+        }
+
     }
 
 }

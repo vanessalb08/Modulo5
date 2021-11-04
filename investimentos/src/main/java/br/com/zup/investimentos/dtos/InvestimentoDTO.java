@@ -1,10 +1,20 @@
 package br.com.zup.investimentos.dtos;
 
+import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+
 public class InvestimentoDTO {
+    @Email(message = "E-mail inválido!")
     private String email;
     private String nome;
+    @CPF
     private String cpf;
     private double valorInvestido;
+    @Min(2)
     private int periodoDeAplicacaoMeses;
     private Risco risco;
 

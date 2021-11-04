@@ -1,0 +1,4 @@
+package br.com.zup.investimentos.config;
+
+public class ControllerAdvice {
+}

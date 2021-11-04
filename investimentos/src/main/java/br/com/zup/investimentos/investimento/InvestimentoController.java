@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,8 +17,8 @@ public class InvestimentoController {
     private InvestimentoService investimentoService;
 
     @PutMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void cadastrarInvestimento (@RequestBody InvestimentoDTO novoInvestimento){
+    @ResponseStatus(HttpStatus.OK)
+    public void cadastrarInvestimento (@RequestBody @Valid InvestimentoDTO novoInvestimento){
         investimentoService.retornarMontante(novoInvestimento);
     }
 
