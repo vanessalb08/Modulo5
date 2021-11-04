@@ -17,7 +17,7 @@ public class InvestimentoController {
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void cadastrarInvestimento (@RequestBody InvestimentoDTO novoInvestimento){
-        investimentoService.salvarInvestimento(novoInvestimento);
+        investimentoService.retornarInvestimento(novoInvestimento);
     }
 
     @GetMapping
