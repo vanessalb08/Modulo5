@@ -41,5 +41,13 @@ public class InvestimentoService {
 
     }
 
+    public double calcularInvestimento (InvestimentoDTO investimentoDTO){
+
+        double valorInvestido = investimentoDTO.getValorInvestido();
+        double valorTotal = valorInvestido * pegarTaxa(investimentoDTO);
+
+        return valorTotal;
+
+    }
 
 }
