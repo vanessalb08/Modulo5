@@ -1,5 +1,7 @@
 package br.com.zup.investimentos.config;
 
+import br.com.zup.investimentos.investimento.exceptions.InvestimentoAltoRiscoMenorQueCincoMilException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,4 +27,18 @@ public class ControllerAdvice {
         return mensagensErro;
 
     }
+
+    @ExceptionHandler(InvestimentoAltoRiscoMenorQueCincoMilException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public MensagemErro tratarInvestimentoAltoRiscoMenorQueCincoMil(InvestimentoAltoRiscoMenorQueCincoMilException excessao){
+        return new MensagemErro(excessao.getMessage());
+
+    }
+
+    @ExceptionHandler(InvalidFormatException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public MensagemErro tratarRiscoNaoReconhecido (){
+        return new MensagemErro("Risco não reconhecido");
+    }
+
 }

@@ -1,9 +1,9 @@
 package br.com.zup.investimentos.config;
 
 public class MensagemErro {
-    public String mensagem;
+    public String mensagemDeErro;
 
-    public MensagemErro(String mensagem) {
-        this.mensagem = mensagem;
+    public MensagemErro(String mensagemDeErro) {
+        this.mensagemDeErro = mensagemDeErro;
     }
 }

@@ -3,6 +3,7 @@ package br.com.zup.investimentos.investimento;
 import br.com.zup.investimentos.dtos.InvestimentoDTO;
 import br.com.zup.investimentos.dtos.MontanteDTO;
 import br.com.zup.investimentos.dtos.Risco;
+import br.com.zup.investimentos.investimento.exceptions.InvestimentoAltoRiscoMenorQueCincoMilException;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,6 @@ public class InvestimentoService {
             taxaDeRetorno = Risco.BAIXO.getTaxaDeRetorno();
 
         }
-        
         return taxaDeRetorno;
 
     }
@@ -74,7 +74,7 @@ public class InvestimentoService {
         double investimentoMinimo = 5000;
 
         if (investimentoDTO.getRisco() == Risco.ALTO & investimentoDTO.getValorInvestido() < investimentoMinimo){
-            throw new RuntimeException("Mínimo investido para esse tipo de risco é de R$ 5000,00");
+            throw new InvestimentoAltoRiscoMenorQueCincoMilException("Mínimo investido para esse tipo de risco é de R$ 5000,00");
         }
 
     }
