@@ -11,7 +11,7 @@ import java.util.List;
 public class InvestimentoService {
 
     private List<InvestimentoDTO> investimentos = new ArrayList<>();
-    private List<MontanteDTO> retornoMontantes =new ArrayList<>();
+   // private List<MontanteDTO> retornoMontantes =new ArrayList<>();
 
     public void retornarInvestimento(InvestimentoDTO novoInvestimento){
         investimentos.add(novoInvestimento);
@@ -41,13 +41,20 @@ public class InvestimentoService {
 
     }
 
-    public double calcularInvestimento (InvestimentoDTO investimentoDTO){
+    public double calcularTotalDoLucro (InvestimentoDTO investimentoDTO){
 
         double valorInvestido = investimentoDTO.getValorInvestido();
-        double valorTotal = valorInvestido * pegarTaxa(investimentoDTO);
+        double valorTotalLucro = valorInvestido * pegarTaxa(investimentoDTO);
+
+        return valorTotalLucro;
+
+    }
+
+    public double calcularValorTotal (InvestimentoDTO investimentoDTO){
+
+        double valorTotal = calcularTotalDoLucro(investimentoDTO) + investimentoDTO.getValorInvestido();
 
         return valorTotal;
-
     }
 
 }
