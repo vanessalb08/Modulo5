@@ -1,6 +1,7 @@
 package br.com.zup.investimentos.investimento;
 
 import br.com.zup.investimentos.dtos.InvestimentoDTO;
+import br.com.zup.investimentos.dtos.MontanteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,12 @@ public class InvestimentoController {
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void cadastrarInvestimento (@RequestBody InvestimentoDTO novoInvestimento){
-        investimentoService.retornarInvestimento(novoInvestimento);
+        investimentoService.retornarMontante(novoInvestimento);
     }
 
     @GetMapping
-    public List<InvestimentoDTO> exibirInvestimento (){
-        return investimentoService.retornarInvestimentos();
+    public List<MontanteDTO> exibirInvestimento (){
+        return investimentoService.retornarTodosMontantes();
     }
 
 }

@@ -13,19 +13,6 @@ public class InvestimentoService {
     //private List<InvestimentoDTO> investimentos = new ArrayList<>();
     private List<MontanteDTO> montantes =new ArrayList<>();
 
-    public MontanteDTO retornarMontante(InvestimentoDTO novoInvestimento){
-
-        MontanteDTO retornoMontante = new MontanteDTO();
-
-        retornoMontante.setValorInvestido(novoInvestimento.getValorInvestido());
-        retornoMontante.setValorTotalDolucro(calcularTotalDoLucro(novoInvestimento));
-        retornoMontante.setValorTotal(calcularValorTotal(novoInvestimento));
-
-        return retornoMontante;
-
-    }
-
-
     public double pegarTaxa (InvestimentoDTO investimentoDTO){
         double taxaDeRetorno = 0;
         
@@ -60,6 +47,24 @@ public class InvestimentoService {
         double valorTotal = calcularTotalDoLucro(investimentoDTO) + investimentoDTO.getValorInvestido();
 
         return valorTotal;
+    }
+
+    public MontanteDTO retornarMontante(InvestimentoDTO novoInvestimento){
+
+        MontanteDTO retornoMontante = new MontanteDTO();
+
+        retornoMontante.setValorInvestido(novoInvestimento.getValorInvestido());
+        retornoMontante.setValorTotalDolucro(calcularTotalDoLucro(novoInvestimento));
+        retornoMontante.setValorTotal(calcularValorTotal(novoInvestimento));
+
+        montantes.add(retornoMontante);
+
+        return retornoMontante;
+
+    }
+
+    public List<MontanteDTO> retornarTodosMontantes(){
+        return montantes;
     }
 
 }
