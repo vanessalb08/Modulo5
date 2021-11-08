@@ -14,7 +14,7 @@ public class InvestimentoDTO {
     @CPF(message = "CPF inválido")
     private String cpf;
     private double valorInvestido;
-    @Min(2)
+    @Min(value = 2, message = "Período mínimo de aplicação é de 2 meses")
     private int periodoDeAplicacaoMeses;
     private Risco risco;
 

@@ -5,7 +5,6 @@ import br.com.zup.investimentos.dtos.MontanteDTO;
 import br.com.zup.investimentos.dtos.Risco;
 import br.com.zup.investimentos.investimento.exceptions.InvestimentoAltoRiscoMenorQueCincoMilException;
 import br.com.zup.investimentos.investimento.exceptions.RiscoInvalidoException;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
